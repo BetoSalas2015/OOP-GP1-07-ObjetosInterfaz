@@ -6,8 +6,9 @@
  * @version 1.0
  */
 import java.awt.*;
+import java.awt.event.*;
 
-public class Calculadora extends Frame
+public class Calculadora1 extends Frame
 {
     // Variables de Instancia 
     private Button b1, b2, b3,b4, b5, b6, b7, b8, b9;
@@ -22,7 +23,7 @@ public class Calculadora extends Frame
     /**
      * Constructor para objetos de la clase Calculador
      */
-    public Calculadora()
+    public Calculadora1()
     {
         super("Calculadora");
         
@@ -66,17 +67,18 @@ public class Calculadora extends Frame
         add(displ, "North");
         
         punto = op = true;
+        
+        addWindowListener( new CW() );      /// Source
     }
     
-    public boolean handleEvent(Event e) {
-        if(e.id == Event.WINDOW_DESTROY) {
+    private class CW extends WindowAdapter {  // Listener
+        public void windowClosing(WindowEvent e) { 
             hide();
             dispose();
-            return true;
         }
-        return super.handleEvent(e);
+
     }
-    
+        
     
     public boolean action(Event e, Object o)
     {
@@ -135,7 +137,7 @@ public class Calculadora extends Frame
     }
     
     public static void main(String arg[]) {
-        Calculadora calc = new Calculadora();
+        Calculadora1 calc = new Calculadora1();
         calc.resize(300,350);
         calc.show();
         
