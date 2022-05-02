@@ -8,8 +8,9 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.applet.Applet;
 
-public class Calculadora2 extends JFrame
+public class Calculadora3 extends Applet
 {
     // Variables de Instancia 
     private JButton b1, b2, b3,b4, b5, b6, b7, b8, b9;
@@ -24,10 +25,8 @@ public class Calculadora2 extends JFrame
     /**
      * Constructor para objetos de la clase Calculador
      */
-    public Calculadora2()
-    {
-        super("Calculadora");
-        
+    public Calculadora3()
+    {        
         b1 = new JButton("1");  b2 = new JButton("2");
         b3 = new JButton("3");  b4 = new JButton("4");
         b5 = new JButton("5");  b6 = new JButton("6");
@@ -64,6 +63,7 @@ public class Calculadora2 extends JFrame
         displ.add(b17, "East");
         displ.add(display, "Center");
         
+        setLayout(new BorderLayout() );
         this.add(teclado, "Center");
         add(displ, "North");
         
@@ -87,19 +87,11 @@ public class Calculadora2 extends JFrame
         b16.addActionListener( new BotonPunto() );
         b17.addActionListener( new BotonC() );
         
-        addWindowListener( new CW() );      /// Source
-        
         setSize(300,350);
         setVisible(true);  
         display.setEnabled(false);
     }
     
-    private class CW extends WindowAdapter {  // Listener
-        public void windowClosing(WindowEvent e) { 
-            setVisible(false);
-            dispose();
-        }
-    }
     
     private class BotonC implements ActionListener {
         public void actionPerformed(ActionEvent e) {
@@ -122,26 +114,12 @@ public class Calculadora2 extends JFrame
     
     private class BotonIgual implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            try {
-                //  Código que potencialmente puede generar una exception
-                opera();
-            } catch(DivideByZeroException excep) {
-                //  Manejador de excepción
-                JOptionPane.showMessageDialog(null,excep.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-            }
-            
-            
-        }
-        
-        public void opera() throws DivideByZeroException {
             num2 = Double.parseDouble( display.getText());
             switch (car) {
                 case '+': res = num1 + num2; break;
                 case '-': res = num1 - num2; break;
                 case '*': res = num1 * num2; break;
-                case '/': if(num2 == 0.0)
-                                throw new DivideByZeroException();
-                        res = num1 / num2; break;
+                case '/': res = num1 / num2; break;
             }
             display.setText( String.valueOf(res) );
             op = punto = true;
@@ -174,7 +152,7 @@ public class Calculadora2 extends JFrame
     
     
     public static void main(String arg[]) {
-        Calculadora2 calc = new Calculadora2();  
+        Calculadora3 calc = new Calculadora3();  
     }
     
     
